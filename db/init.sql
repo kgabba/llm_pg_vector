@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username TEXT NOT NULL,
     roles TEXT[],
-    hash_psw TEXT NOT NULL
+    hash_psw TEXT NOT NULL,
     session_token TEXT
 );
