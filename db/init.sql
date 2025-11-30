@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS embeddings (
     id SERIAL PRIMARY KEY,
     text TEXT NOT NULL,
-    embedding VECTOR
+    embedding double precision[]
 );
 
 CREATE TABLE IF NOT EXISTS users (
