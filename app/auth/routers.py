@@ -37,8 +37,7 @@ def reg_user(user:User_registr, con=Depends(conn_to_db)):
     hash_psw = hash_password(user.password)
     cursor = con.cursor()
     cursor.execute('INSERT INTO users (username, hash_psw) VALUES (%s, %s)', (user.username, hash_psw))
-    id_user = cursor.fetchone()[0]
-    return {'message':f'user {user.username} is accessfully added with id {id_user}'}
+    return {'message':f'user {user.username} is accessfully added'}
     
 
 @router_bd.post("/update_roles", dependencies=[Depends(require_roles(["admin"]))])
