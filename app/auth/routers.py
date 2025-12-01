@@ -48,7 +48,7 @@ def update_roles(
 ):
     cursor = conn.cursor()
 
-    correct_roles = [s.strip() for s in roles.split(',')]
+    correct_roles = [s.strip() for s in roles[0].split(',')]
     
     cursor.execute(
         "UPDATE users SET roles = %s WHERE username = %s RETURNING id",
