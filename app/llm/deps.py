@@ -2,7 +2,7 @@ import os
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-API_KEY = os.getenv("OPENAI_API_KEY")
+API_KEY = os.getenv("API_KEY")
 BASE_URL = "https://aleron-llm.neuraldeep.tech/"
 
 # LLM (для диалогов, не обязателен для эмбеддингов)
