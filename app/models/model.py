@@ -18,3 +18,6 @@ class UserPublic(BaseModel):
 class Emb(BaseModel):
     text: str
     emb: list[int]
+
+class TextIn(BaseModel):
+    text: str
