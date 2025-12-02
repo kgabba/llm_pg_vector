@@ -14,11 +14,8 @@ def auth_and_set_jwt_in_cookie(res:Response, user: User = Depends(check_valid_us
     jwt_token = create_jwt(data={'username':user.username, 'roles':user.roles})
     res.set_cookie(key='jwt_personal_session_token', value=jwt_token)
     if 'user' in user.roles:
-        return {'message':f'''{user.username}, вы успешно авторизовались!
-                у вас есть доступ к приложению'''}
-    return {'message':f'''{user.username}, вы успешно авторизовались!
-                Однако у вас нет доступа к приложению,
-            обратитесь к администраторам'''}
+        return {'message':f'''{user.username}, вы успешно авторизовались! у вас есть доступ к приложению'''}
+    return {'message':f'''{user.username}, вы успешно авторизовались! Однако у вас нет доступа к приложению, обратитесь к администраторам'''}
 
 
 router_bd = APIRouter(prefix='/bd')
@@ -42,8 +39,8 @@ def reg_user(user:User_registr, con=Depends(conn_to_db)):
     hash_psw = hash_password(user.password)
     cursor = con.cursor()
     cursor.execute('INSERT INTO users (username, hash_psw) VALUES (%s, %s)', (user.username, hash_psw))
-    return {'message':f'''{user.username}, вы успешно зарегистрировались,
-            для получения доступа к приложению - обратитесь к администраторам'''}
+
+    return {'message':f'''{user.username}, вы успешно зарегистрировались, для получения доступа к приложению - обратитесь к администраторам'''}
     
 
 # @router_bd.post("/update_roles", dependencies=[Depends(require_roles(["moderator"]))])
