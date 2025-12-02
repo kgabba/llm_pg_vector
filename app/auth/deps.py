@@ -49,3 +49,17 @@ def require_roles(need_roles: list[str]):
             raise HTTPException(status_code=403, detail='has not access')
         return user
     return dependency
+
+
+#проверить остаток запросов (это на потом)
+def asks_count(req:Request, con):
+
+    #1) get username from jwt in cookie
+    user = check_valid_session_token_and_get_user()
+    username = user.username
+
+    #2) get asks_cnt
+    cursor = con.cursor()
+    cursor.execute('select asks_cnt from users where username = %s', ( ,username))
+    data = cursor.fetchrow()[0]
+    return data
