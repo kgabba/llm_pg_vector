@@ -3,21 +3,21 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 API_KEY = os.getenv("API_KEY")
-BASE_URL = "https://aleron-llm.neuraldeep.tech/"
+#BASE_URL = "https://aleron-llm.neuraldeep.tech/"
 
 # LLM (для диалогов, не обязателен для эмбеддингов)
 llm = ChatOpenAI(
     model="gpt-4o-mini",
     api_key=API_KEY,
-    base_url=BASE_URL,
-    temperature=0,
+    #base_url=BASE_URL,
+    temperature=0
 )
 
 # Модель эмбеддингов 
 embeddings_model = OpenAIEmbeddings(
     model="text-embedding-3-small",   
-    api_key=API_KEY,
-    base_url=BASE_URL,
+    api_key=API_KEY
+    #base_url=BASE_URL,
 )
 
 # Разбивка текста на чанки
