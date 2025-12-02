@@ -5,10 +5,12 @@ from auth.routers import router_auth, router_bd
 import psycopg2
 from db.utils import DB_URL
 from llm.routers import router_llm
+import asyncio
 
 @asynccontextmanager
 async def lifespan(api: FastAPI):
     try:
+        await asyncio.sleep(10) #ждем пока постгрес поднимется
         api.state.conn = psycopg2.connect(DB_URL)
         api.state.conn.autocommit = True
         print('подключение БД успешно создано')
