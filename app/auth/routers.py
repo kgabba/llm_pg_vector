@@ -13,7 +13,7 @@ router_auth = APIRouter(prefix='/auth')
 def auth_and_set_jwt_in_cookie(res:Response, user: User = Depends(check_valid_user_from_db_and_get_user)):
     jwt_token = create_jwt(data={'username':user.username, 'roles':user.roles})
     res.set_cookie(key='jwt_personal_session_token', value=jwt_token)
-    return user
+    return {'message':f'access auth {user.username}'}
 
 
 router_bd = APIRouter(prefix='/bd')
