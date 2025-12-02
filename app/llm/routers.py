@@ -2,20 +2,21 @@ from fastapi import APIRouter, Depends
 from models.model import TextIn
 from db.utils import conn_to_db
 from llm.deps import chunk_and_embed_to_db, llm, get_top_k_chunks
+from auth.deps import require_roles
 
 router_llm = APIRouter(prefix='/llm')
 
-@router_llm.post("/embed")
+@router_llm.post("/embed", dependencies=[Depends(require_roles(["admin"]))])
 def create_embeddings(payload: TextIn, conn = Depends(conn_to_db)):
     inserted = chunk_and_embed_to_db(payload.text, conn)
     return {"status": "ok", "chunks_added_counts": inserted}
 
-@router_llm.post("/ask")
+@router_llm.post("/ask", dependencies=[Depends(require_roles(["user"]))])
 def ask_llm(payload: TextIn, conn = Depends(conn_to_db)):
     question = payload.text
 
-    # 1. достаём top-3 чанка из БД
-    chunks = get_top_k_chunks(question, conn, k=3)
+    # 1. достаём top-2 чанка из БД
+    chunks = get_top_k_chunks(question, conn, k=2)
 
     if not chunks:
         return {
