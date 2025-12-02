@@ -23,3 +23,5 @@ langchain-community
 langchain
 langgraph
 langchain_text_splitters
+python-docx
+pypdf
