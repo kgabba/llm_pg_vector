@@ -13,7 +13,8 @@ router_auth = APIRouter(prefix='/auth')
 def auth_and_set_jwt_in_cookie(res:Response, user: User = Depends(check_valid_user_from_db_and_get_user)):
     jwt_token = create_jwt(data={'username':user.username, 'roles':user.roles})
     res.set_cookie(key='jwt_personal_session_token', value=jwt_token)
-    if 'user' in user.roles:
+    roles = user.roles or []
+    if 'user' in roles:
         return {'message':f'''{user.username}, вы успешно авторизовались! у вас есть доступ к приложению'''}
     return {'message':f'''{user.username}, вы успешно авторизовались! Однако у вас нет доступа к приложению, обратитесь к администраторам'''}
 
