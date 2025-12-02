@@ -45,3 +45,22 @@ def chunk_and_embed_to_db(text: str, conn):
         )
 
     return len(chunks)
+
+def get_top_k_chunks(question: str, conn, k: int = 3) -> list[str]:
+    """Векторизуем вопрос и достаём top-k ближайших чанков из таблицы embeddings."""
+    # один вектор для запроса
+    q_vec = embeddings_model.embed_query(question)
+    q_vec_str = "[" + ",".join(str(x) for x in q_vec) + "]"
+
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        SELECT text
+        FROM embeddings
+        ORDER BY embedding <-> %s::vector
+        LIMIT %s
+        """,
+        (q_vec_str, k),
+    )
+    rows = cursor.fetchall()
+    return [r[0] for r in rows]
