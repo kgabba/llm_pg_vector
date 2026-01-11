@@ -1,7 +1,10 @@
+DROP TABLE IF EXISTS embeddings;
+CREATE EXTENSION IF NOT EXISTS vector;
+
 CREATE TABLE IF NOT EXISTS embeddings (
     id SERIAL PRIMARY KEY,
     text TEXT NOT NULL,
-    embedding double precision[]
+    embedding VECTOR(1536)
 );
 
 CREATE TABLE IF NOT EXISTS users (

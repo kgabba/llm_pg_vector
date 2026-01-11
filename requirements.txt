@@ -18,3 +18,10 @@ uuid==1.30
 uvicorn==0.38.0
 bcrypt
 python-multipart
+langchain_openai
+langchain-community
+langchain
+langgraph
+langchain_text_splitters
+python-docx
+pypdf
